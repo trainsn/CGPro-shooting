@@ -16,6 +16,9 @@
     <Filter Include="源文件\Model">
       <UniqueIdentifier>{f6e1ff41-8f9c-460c-98e4-34e75a6ec222}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\gl">
+      <UniqueIdentifier>{fe980eb3-a2a7-41cb-a6cd-11f8d3fa8e72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model.h">
@@ -36,6 +39,18 @@
     <ClInclude Include="SOIL.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CStaticImage.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CHeightMap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Glext.h">
+      <Filter>头文件\gl</Filter>
+    </ClInclude>
+    <ClInclude Include="CGame.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Matrix.cpp">
@@ -49,6 +64,15 @@
     </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>源文件\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="cHeightMap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CGame.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CStaticImage.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

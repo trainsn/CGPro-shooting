@@ -48,7 +48,7 @@ public :
     {
         float m_vertexNormals[3][3];
         float m_s[3], m_t[3];
-        float m_vertexIndices[3];
+        int m_vertexIndices[3];
     };
 
     struct Vertex

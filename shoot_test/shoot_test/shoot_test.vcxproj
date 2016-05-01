@@ -18,7 +18,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -64,14 +64,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CGame.h" />
+    <ClInclude Include="CHeightMap.h" />
+    <ClInclude Include="CStaticImage.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="Defines.h" />
+    <ClInclude Include="Glext.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="SOIL.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CGame.cpp" />
+    <ClCompile Include="cHeightMap.cpp" />
+    <ClCompile Include="CStaticImage.cpp" />
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Model.cpp" />
