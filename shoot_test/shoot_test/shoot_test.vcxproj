@@ -44,6 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -64,23 +65,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CCamera.h" />
+    <ClInclude Include="CCharacter.h" />
     <ClInclude Include="CGame.h" />
     <ClInclude Include="CHeightMap.h" />
     <ClInclude Include="CStaticImages.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="Glext.h" />
+    <ClInclude Include="Main.h" />
+    <ClInclude Include="mat.h" />
     <ClInclude Include="matrix.h" />
+    <ClInclude Include="MilkshapeModel.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="SOIL.h" />
+    <ClInclude Include="vec.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CCamera.cpp" />
+    <ClCompile Include="CCharacter.cpp" />
     <ClCompile Include="CGame.cpp" />
-    <ClCompile Include="cHeightMap.cpp" />
+    <ClCompile Include="CHeightMap.cpp" />
     <ClCompile Include="CStaticImages.cpp" />
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="MilkshapeModel.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>

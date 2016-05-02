@@ -17,7 +17,7 @@ CHeightMap::~CHeightMap(void)
 {
 }
 
-void CHeightMap::renderHeightmap(PFNGLMULTITEXCOORD2FARBPROC glMultiTexCoord2fvARB, PFNGLACTIVETEXTUREARBPROC glActiveTextureARB, GLint* heightMapTexture)
+void CHeightMap::RenderHeightMap(PFNGLMULTITEXCOORD2FARBPROC glMultiTexCoord2fARB, PFNGLACTIVETEXTUREARBPROC glActiveTextureARB, GLuint* heightMapTexture)
 {
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();

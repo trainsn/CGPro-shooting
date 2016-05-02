@@ -9,6 +9,7 @@ CStaticImages::CStaticImages(CGame* game, int width, int height)
 CStaticImages::~CStaticImages(void)
 {
 }
+
 void CStaticImages::loadSkyBoxTextures() 
 {
 	skybox[0] = SOIL_load_OGL_texture

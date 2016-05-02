@@ -1,8 +1,11 @@
 #pragma once 
 
 #include <windows.h>
+#include <gl\GL.h>
+#include <gl\GLU.h>
 #include <gl\freeglut.h>
 #include <gl\GLAUX.H>
+
 #include "SOIL.h"
 #include "Defines.h"
 #include "CGame.h"
@@ -16,11 +19,12 @@ public:
     ~CStaticImages(void);
 
     void drawStatic(GLuint mask, GLuint image);
-    void loadSkyBoxTexture();
-    void loadStaticTexture();
-    void loadHeightMapTexture();
+    void loadSkyBoxTextures();
+    void loadStaticTextures();
+    void loadHeightMapTextures();
     void drawGLStatics();
     int drawHealthStatic();
+    int drawCross();
 
     int w, h;//window width,height
 

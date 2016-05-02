@@ -124,9 +124,9 @@ public :
     }
 
 protected:
-    void setJointKeyfame(int jointIndex, int keyframeIndex, float time, float *parameter, bool isRotation);
+    void setJointKeyframe(int jointIndex, int keyframeIndex, float time, float *parameter, bool isRotation);
 
-    void SetupJoints();
+    void setupJoints();
 
     void setLooping(bool looping){
         m_looping = looping;

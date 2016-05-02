@@ -19,17 +19,14 @@
     <Filter Include="头文件\gl">
       <UniqueIdentifier>{fe980eb3-a2a7-41cb-a6cd-11f8d3fa8e72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\math">
+      <UniqueIdentifier>{b0fded1e-da36-4e1c-ae3f-12d059f5c6a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\models">
+      <UniqueIdentifier>{4725f1b7-10cf-42d4-9e32-957687bb926c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Model.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="CTimer.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -51,6 +48,33 @@
     <ClInclude Include="CStaticImages.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CCamera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="mat.h">
+      <Filter>头文件\math</Filter>
+    </ClInclude>
+    <ClInclude Include="vec.h">
+      <Filter>头文件\math</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix.h">
+      <Filter>头文件\math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>头文件\math</Filter>
+    </ClInclude>
+    <ClInclude Include="MilkshapeModel.h">
+      <Filter>头文件\models</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>头文件\models</Filter>
+    </ClInclude>
+    <ClInclude Include="CCharacter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Matrix.cpp">
@@ -65,13 +89,22 @@
     <ClCompile Include="Model.cpp">
       <Filter>源文件\Model</Filter>
     </ClCompile>
-    <ClCompile Include="cHeightMap.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="CGame.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CStaticImages.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CCamera.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CHeightMap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MilkshapeModel.cpp">
+      <Filter>源文件\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="CCharacter.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

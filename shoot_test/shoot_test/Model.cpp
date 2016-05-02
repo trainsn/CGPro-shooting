@@ -161,7 +161,7 @@ void Model::reloadTextures()
             m_pMaterials[i].m_texture = 0;
 }
 
-void Model::setJointKeyfame(int jointIndex, int keyframeIndex, float time, float *parameter, bool isRotation)
+void Model::setJointKeyframe(int jointIndex, int keyframeIndex, float time, float *parameter, bool isRotation)
 {
     assert(m_numJoints > jointIndex);
 
@@ -172,7 +172,7 @@ void Model::setJointKeyfame(int jointIndex, int keyframeIndex, float time, float
     memcpy(keyframe.m_parameter, parameter, sizeof(float) * 3);
 }
 
-void Model::SetupJoints()
+void Model::setupJoints()
 {
     int i;
     for (i = 0; i < m_numJoints; i++)
