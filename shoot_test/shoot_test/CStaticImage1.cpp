@@ -280,5 +280,5 @@ void CStaticImages::loadStaticTexture()
 
 void CStaticImages::drawStatic(GLuint mask, GLuint image)
 {
-
+    glMatrixMode()
 }

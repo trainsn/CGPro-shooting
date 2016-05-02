@@ -66,7 +66,7 @@
   <ItemGroup>
     <ClInclude Include="CGame.h" />
     <ClInclude Include="CHeightMap.h" />
-    <ClInclude Include="CStaticImage.h" />
+    <ClInclude Include="CStaticImages.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="Glext.h" />
@@ -78,7 +78,7 @@
   <ItemGroup>
     <ClCompile Include="CGame.cpp" />
     <ClCompile Include="cHeightMap.cpp" />
-    <ClCompile Include="CStaticImage.cpp" />
+    <ClCompile Include="CStaticImages.cpp" />
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Model.cpp" />

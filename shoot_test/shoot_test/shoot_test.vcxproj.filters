@@ -39,9 +39,6 @@
     <ClInclude Include="SOIL.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="CStaticImage.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="CHeightMap.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -49,6 +46,9 @@
       <Filter>头文件\gl</Filter>
     </ClInclude>
     <ClInclude Include="CGame.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CStaticImages.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -71,7 +71,7 @@
     <ClCompile Include="CGame.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CStaticImage.cpp">
+    <ClCompile Include="CStaticImages.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
