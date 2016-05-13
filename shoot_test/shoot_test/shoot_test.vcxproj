@@ -72,6 +72,9 @@
     <ClInclude Include="CStaticImages.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="Defines.h" />
+    <ClInclude Include="fmod.h" />
+    <ClInclude Include="fmoddyn.h" />
+    <ClInclude Include="fmod_errors.h" />
     <ClInclude Include="Glext.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="mat.h" />
@@ -81,6 +84,7 @@
     <ClInclude Include="SOIL.h" />
     <ClInclude Include="vec.h" />
     <ClInclude Include="Vector.h" />
+    <ClInclude Include="Win32Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp" />
@@ -89,10 +93,12 @@
     <ClCompile Include="CHeightMap.cpp" />
     <ClCompile Include="CStaticImages.cpp" />
     <ClCompile Include="CTimer.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="MilkshapeModel.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Vector.cpp" />
+    <ClCompile Include="Win32Timer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

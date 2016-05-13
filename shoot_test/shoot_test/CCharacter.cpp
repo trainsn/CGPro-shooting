@@ -3,6 +3,7 @@
 #include <fstream>
 
 using namespace std;
+
 CCharacter::CCharacter(const char* filename, CGame* game, int suit, float x_i, float y_i)
 {
 	cGame = game;
@@ -29,7 +30,7 @@ CCharacter::CCharacter(const char* filename, CGame* game, int suit, float x_i, f
 								  //doesn't do anything about the actual visibility of the object
 
 		cBehavior = AGGRESSIVE;
-		cType 	  = NINJA:
+        cType = NINJA;
 	}
 	else
 	{
@@ -49,17 +50,20 @@ CCharacter::CCharacter(const char* filename, CGame* game, int suit, float x_i, f
 	currentPosition[2] = y;
 	currentPosition[1] = cGame->getHMTrans(x,y)+10;//height
 	setNewEndPosition();
-	attackTime = (float)cGame->timer->getTicks_ms();
+
+	attackTime = (float)cGame->timer->getTicks_mS();
 }
+
 CCharacter::~CCharacter(void)
 {
 	delete cModel;
 }
+
 void CCharacter::Draw()
 {
 	switch(cBehavior)
 	{
-		case WANDDER:
+		case WANDER:
 			wander();
 			break;
 		case AGGRESSIVE:
@@ -73,6 +77,8 @@ void CCharacter::Draw()
 		default:
 			break;
 	}
+
+
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glTranslatef(currentPosition[0],currentPosition[1],currentPosition[2]);
@@ -87,6 +93,7 @@ void CCharacter::Draw()
 	cModel->updateTransfMatrix();
 
 	//debugging purposes
+    cModel->drawBoundingBox();
 	cModel->draw();
 
 	glPopMatrix();
@@ -99,6 +106,49 @@ void CCharacter::die()
 	cGame->numEnemiesKilled++;
 	//FSOUND_PlaySound (FSOUND_FREE,cGame->g_death);
 }
+
+//copy
+void CCharacter::wander()
+{
+    cModel->setState(NINJA_WALKING);
+
+    lastPosition = currentPosition;		// save the last spot we were at
+
+    // decide whether we've reached our destination point
+    Vec3d check = endPosition - currentPosition;
+    if (check.length() < DEST_RADIUS)
+        setNewEndPosition();	// Update destination point
+
+    Vec3d delta = endPosition - startPosition;
+    delta.normalize();
+    float t = ((float)cGame->timer->getTicks_mS() - startTime) / 80.0;
+
+    currentPosition = startPosition + delta * t;
+    currentPosition[1] = cGame->getHMTrans((float)currentPosition[0], (float)currentPosition[2]) + 9;
+
+    Vec3d newDirection = (currentPosition - lastPosition);
+    newDirection.normalize();
+
+    if (newDirection[2] >= 0)
+        rotation = -90 - 180 / PI * acosf((float)newDirection[0]);
+    else
+        rotation = -90 + 180 / PI * acosf((float)newDirection[0]);
+}
+
+//copy
+void CCharacter::attack()
+{
+    Vec3d cameraPosition = Vec3d(cGame->camera->mPos.x, cGame->getHMTrans(cGame->camera->mPos.x, cGame->camera->mPos.z) + 10, cGame->camera->mPos.z);
+    Vec3d check = currentPosition - cameraPosition;
+    double checkLength = check.length();
+    if (checkLength < ATTACK_RADIUS)
+    {
+        defend();
+    }
+    else
+        wander();
+}
+
 void CCharacter::defend(){
 	Vec3d cameraPosition = Vec3d(cGame->camera->mPos.x,cGame->getHMTrans(cGame->camera->mPos.x,cGame->camera->mPos.z) + 10, cGame->camera->mPos.z);
 
@@ -108,7 +158,7 @@ void CCharacter::defend(){
 	if(checkLength < ATTACK_RADIUS)
 	{
 		cModel->setState(NINJA_ATTACK);
-		if (cGame->timer->getTicks_ms() - attackTime > ATTACK_TIME)
+		if (cGame->timer->getTicks_mS() - attackTime > ATTACK_TIME)
 		{
 			cGame->CharacterHealth -= 10;
 			attackTime = (float)cGame->timer->getTicks_mS();
@@ -127,6 +177,7 @@ void CCharacter::defend(){
 	else rotation = 90 + 180/PI * acosf((float)newDirection[0]);
 
 }
+
 void CCharacter::setNewEndPosition()
 {
 	if(cGame->CharacterType = PIRATE)
@@ -144,5 +195,5 @@ void CCharacter::setNewEndPosition()
 	}
 	
 	startPosition = currentPosition;
-	startTime = (float)cGame->timer->getTicks_ms();
+	startTime = (float)cGame->timer->getTicks_mS();
 }

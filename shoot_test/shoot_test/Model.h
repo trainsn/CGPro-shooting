@@ -9,6 +9,10 @@
 #include "CTimer.h"
 #include "Defines.h"
 
+#if defined(_WIN32)
+#include <windows.h>
+#endif
+
 #include <gl/GL.h>
 #include <GL/GLU.h>
 
@@ -20,9 +24,9 @@
 #include "Vector.h"
 #include "SOIL.h"
 
-#pragma commet(lib,"opengl32.lib");
-#pragma  commet(lib,"glu32.lib");
-#pragma  commet(lib,"glaux.lib");
+#pragma comment(lib,"opengl32.lib");
+#pragma  comment(lib,"glu32.lib");
+#pragma  comment(lib,"glaux.lib");
 
 #define  MAX_STATES 20
 
