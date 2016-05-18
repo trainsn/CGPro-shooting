@@ -137,8 +137,8 @@ void shoot()
 
 bool inline CollisionBoxPoint(MilkshapeModel* obj1, tVector3 point)
 {
-    float zm = min(obj1->getTBox().zmin, obj1->getTBox().zmax);
-    float zx = max(obj1->getTBox().zmin, obj1->getTBox().zmax);
+    float zm = min(obj1->getTBbox ().zmin, obj1->getTBbox ().zmax);
+    float zx = max(obj1->getTBbox ().zmin, obj1->getTBbox ().zmax);
 
     if (zm < 0)
         zm *= CH;
@@ -150,11 +150,11 @@ bool inline CollisionBoxPoint(MilkshapeModel* obj1, tVector3 point)
     else
         zx /= CH;
 
-    if (point.x >= min(obj1->getTBox().xmin, obj1->getTBox().xmax) && point.x <= max(obj1->getTBox().xmin, obj1->getTBox().xmax) &&
-        point.y >= min(obj1->getTBox().ymin, obj1->getTBox().ymax) && point.y <= max(obj1->getTBox().ymin, obj1->getTBox().ymax)
+    if (point.x >= min(obj1->getTBbox ().xmin, obj1->getTBbox ().xmax) && point.x <= max(obj1->getTBbox ().xmin, obj1->getTBbox ().xmax) &&
+        point.y >= min(obj1->getTBbox ().ymin, obj1->getTBbox ().ymax) && point.y <= max(obj1->getTBbox ().ymin, obj1->getTBbox ().ymax)
         && point.z >= zm && point.z <= zx)
     {
-        if (point.y > min(obj1->getTBox().ymin, obj1->getTBox().ymax) + 6 * max(obj1->getTBox().ymin, obj1->getTBox().ymax) / 7)
+        if (point.y > min(obj1->getTBbox ().ymin, obj1->getTBbox ().ymax) + 6 * max(obj1->getTBbox ().ymin, obj1->getTBbox ().ymax) / 7)
         {
             //Headshot!
             //a tribute to the hours spent on unreal tournament
@@ -173,9 +173,9 @@ bool inline CollisionBoxPoint(MilkshapeModel* obj1, tVector3 point)
 bool CheckBulletCollisions()
 {
     //check for collision dectection
-    float xc = (shot->getTBox().xmin + shot->getTBox().xmax) / 2;
-    float yc = (shot->getTBox().ymin + shot->getTBox().ymax) / 2;
-    float zc = (shot->getTBox().zmin + shot->getTBox().zmax) / 2;
+    float xc = (shot->getTBbox ().xmin + shot->getTBbox ().xmax) / 2;
+    float yc = (shot->getTBbox ().ymin + shot->getTBbox ().ymax) / 2;
+    float zc = (shot->getTBbox ().zmin + shot->getTBbox ().zmax) / 2;
 
     for (int i = 0; i < ENEMIES; i++)
     {
