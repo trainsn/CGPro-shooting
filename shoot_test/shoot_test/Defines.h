@@ -1,6 +1,6 @@
 #pragma once 
 
-#define		CAMERASPEED			0.015f			// The Camera Speed
+#define		CAMERASPEED			0.025f			// The Camera Speed
 #define		MAP_SIZE			1024
 #define		STEP_SIZE			16				// This controls the resolution of the terrain. 
 #define		HM_DISPLACEMENT		10				// A hack magic number to position models correctly w.r.t. the heightmap along the y-axis
@@ -13,8 +13,8 @@
 
 #define		TEXT_TIME			40
 
-#define		MAX_ENEMIES			25				// Maximum number of permissible enemies.
-#define		ENEMIES				25				// Number of enemies actually generated.
+#define		MAX_ENEMIES			5				// Maximum number of permissible enemies.
+#define		ENEMIES				5				// Number of enemies actually generated.
 #define		ENEMIES_KILLED_WIN	ENEMIES			// Number of enemies you must kill to win.
 #define		CH					3				// Mihali, I can't believe you used 'CH' as a define name =P.
 
