@@ -33,16 +33,16 @@ void CHeightMap::RenderHeightMap(PFNGLMULTITEXCOORD2FARBPROC glMultiTexCoord2fAR
 
         glActiveTextureARB(GL_TEXTURE0_ARB);
         glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, heightMapTexture[0]);
+        glBindTexture(GL_TEXTURE_2D, heightMapTexture[0]);//terrain.png
 
         glActiveTextureARB(GL_TEXTURE1_ARB);
         glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, heightMapTexture[1]);
+        glBindTexture(GL_TEXTURE_2D, heightMapTexture[1]);//detail.bmp
 
         glBegin(GL_QUADS);
             //top left vertex
         glMultiTexCoord2fARB(GL_TEXTURE0_ARB, x_0, y_0);
-        glMultiTexCoord2fARB(GL_TEXTURE1_ARB, 0.0f, 1.0f);
+        glMultiTexCoord2fARB(GL_TEXTURE1_ARB, 0.0f, 0.0f);
         glVertex3i(x, Height(x, y), y);
             //bottom left vertex
         glMultiTexCoord2fARB(GL_TEXTURE0_ARB, x_0, y_1);
@@ -53,7 +53,7 @@ void CHeightMap::RenderHeightMap(PFNGLMULTITEXCOORD2FARBPROC glMultiTexCoord2fAR
         glMultiTexCoord2fARB(GL_TEXTURE1_ARB, 1.0f, 1.0f);
         glVertex3i(x + STEP_SIZE, Height(x + STEP_SIZE, y + STEP_SIZE), y + STEP_SIZE);
             //top right vertex
-        glMultiTexCoord2fARB(GL_TEXTURE0_ARB, x_1, y_1);
+        glMultiTexCoord2fARB(GL_TEXTURE0_ARB, x_1, y_0);
         glMultiTexCoord2fARB(GL_TEXTURE1_ARB, 1.0f, 0.0f);
         glVertex3i(x + STEP_SIZE, Height(x + STEP_SIZE, y), y);
         glEnd();            

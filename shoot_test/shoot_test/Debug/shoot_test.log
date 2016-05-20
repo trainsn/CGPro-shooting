@@ -1,19 +1,10 @@
-﻿生成启动时间为 2016/5/19 16:40:45。
-     1>项目“C:\Users\dell\Documents\GitHub\scaling-waddle\shoot_test\shoot_test\shoot_test.vcxproj”在节点 2 上(Build 个目标)。
+﻿生成启动时间为 2016/5/20 20:01:10。
+     1>项目“C:\Users\dell\Documents\GitHub\shooting\shoot_test\shoot_test\shoot_test.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt CCamera.cpp CCharacter.cpp CGame.cpp CHeightMap.cpp CStaticImages.cpp Main.cpp MilkshapeModel.cpp Model.cpp
-         CCamera.cpp
-         正在生成代码...
-         正在跳过...(未检测到相关更改)
-         Model.cpp
-         MilkshapeModel.cpp
-         Main.cpp
-         CStaticImages.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt CHeightMap.cpp
          CHeightMap.cpp
-         CGame.cpp
-         CCharacter.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\dell\Documents\GitHub\scaling-waddle\shoot_test\Debug\shoot_test.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\dell\Documents\GitHub\scaling-waddle\shoot_test\Debug\shoot_test.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\dell\Documents\GitHub\scaling-waddle\shoot_test\Debug\shoot_test.lib" /MACHINE:X86 Debug\CCamera.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\dell\Documents\GitHub\shooting\shoot_test\Debug\shoot_test.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\dell\Documents\GitHub\shooting\shoot_test\Debug\shoot_test.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\dell\Documents\GitHub\shooting\shoot_test\Debug\shoot_test.lib" /MACHINE:X86 Debug\CCamera.obj
          Debug\CCharacter.obj
          Debug\CGame.obj
          Debug\CHeightMap.obj
@@ -25,9 +16,9 @@
          Debug\Model.obj
          Debug\Vector.obj
          Debug\Win32Timer.obj
-         shoot_test.vcxproj -> C:\Users\dell\Documents\GitHub\scaling-waddle\shoot_test\Debug\shoot_test.exe
-     1>已完成生成项目“C:\Users\dell\Documents\GitHub\scaling-waddle\shoot_test\shoot_test\shoot_test.vcxproj”(Build 个目标)的操作。
+         shoot_test.vcxproj -> C:\Users\dell\Documents\GitHub\shooting\shoot_test\Debug\shoot_test.exe
+     1>已完成生成项目“C:\Users\dell\Documents\GitHub\shooting\shoot_test\shoot_test\shoot_test.vcxproj”(Build 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:05.06
+已用时间 00:00:05.25
