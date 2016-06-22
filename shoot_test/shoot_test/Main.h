@@ -6,7 +6,6 @@
 #pragma comment(lib, "glu32.lib")
 #pragma comment(lib, "glaux.lib")
 #pragma comment(lib, "libSOIL.a")
-#pragma comment(lib, "fmod.lib")
 
 #include <windows.h>					// Header File For Windows
 #include <gl\gl.h>						// Header File For The OpenGL32 Library
@@ -25,9 +24,9 @@
 #include "vec.h"
 
 #include "CGame.h"
-#include "CCharacter.h"
+#include "CFigure.h"
 #include "CStaticImages.h"
-#include "MilkshapeModel.h"
+#include "Milkshape.h"
 
 //openGl Multitexturing support 
 PFNGLMULTITEXCOORD2FARBPROC glMultiTexCoord2fARB = NULL;
@@ -61,20 +60,20 @@ static CGame game;
 CStaticImages staticImages(&game, w, h);
 
 //Models 
-MilkshapeModel *shot_pirate = NULL;
-MilkshapeModel *shot_ninja = NULL;
-MilkshapeModel *shot = NULL;
-MilkshapeModel *cannon = NULL;
-MilkshapeModel *japaneseTower = NULL;
-MilkshapeModel *pirateBoat = NULL;
-MilkshapeModel *tree = NULL;
+Milkshape *shot_pirate = NULL;
+Milkshape *shot_ninja = NULL;
+Milkshape *shot = NULL;
+Milkshape *cannon = NULL;
+Milkshape *japaneseTower = NULL;
+Milkshape *pirateBoat = NULL;
+Milkshape *tree = NULL;
 
 //storage of random tree locations
 float TreeTranslationi[NUM_TREES*NUM_TREES];
 float TreeTranslationj[NUM_TREES*NUM_TREES];
 
 //Animated charactres
-CCharacter* enemies[MAX_ENEMIES];
+CFigure* enemies[MAX_ENEMIES];
 
 //Shooting object variables
 tVector3 p, v, e;//store pos and view

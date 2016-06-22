@@ -66,20 +66,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h" />
-    <ClInclude Include="CCharacter.h" />
+    <ClInclude Include="CFigure.h" />
     <ClInclude Include="CGame.h" />
-    <ClInclude Include="CHeightMap.h" />
+    <ClInclude Include="CAltitude.h" />
     <ClInclude Include="CStaticImages.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="Defines.h" />
-    <ClInclude Include="fmod.h" />
-    <ClInclude Include="fmoddyn.h" />
-    <ClInclude Include="fmod_errors.h" />
     <ClInclude Include="Glext.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="mat.h" />
     <ClInclude Include="matrix.h" />
-    <ClInclude Include="MilkshapeModel.h" />
+    <ClInclude Include="Milkshape.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="SOIL.h" />
     <ClInclude Include="vec.h" />
@@ -88,14 +85,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp" />
-    <ClCompile Include="CCharacter.cpp" />
+    <ClCompile Include="CFigure.cpp" />
     <ClCompile Include="CGame.cpp" />
-    <ClCompile Include="CHeightMap.cpp" />
+    <ClCompile Include="CAltitude.cpp" />
     <ClCompile Include="CStaticImages.cpp" />
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Matrix.cpp" />
-    <ClCompile Include="MilkshapeModel.cpp" />
+    <ClCompile Include="Milkshape.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Vector.cpp" />
     <ClCompile Include="Win32Timer.cpp" />

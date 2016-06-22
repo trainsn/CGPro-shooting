@@ -1,25 +1,14 @@
 #pragma once
 
-// --------------------------------------------------------------
-// 
-//
-// CGame.h
-//
-//
-// --------------------------------------------------------------
-
-#include "fmod.h"
-#include "fmod_errors.h"
-
 #include "Defines.h"
-#include "CHeightMap.h"
+#include "CAltitude.h"
 #include "CTimer.h"
 #include "CCamera.h"
 
 
 class CTimer;
 class CCamera;	
-class CHeightMap;
+class CAltitude;
 
 class CGame
 {
@@ -33,10 +22,6 @@ public:
 
 	// Game heightmap - get translation
 		int getHMTrans(float x, float y);
-
-	// Game sounds
-		void initializeGameSounds();
-		void killAllSounds();
 
 	// Game state machine functions
 		void setState(int newState);	
@@ -60,19 +45,9 @@ public:
 		volatile int	text_time; //same thing for test
 		GLuint			t_mask;
 		GLuint			t_text;
-
-	// FMOD mp3/wav sound pointers
-		FSOUND_STREAM	*g_splash_stream;
-		FSOUND_STREAM	*g_rick_stream;
-		FSOUND_SAMPLE	*g_lose;
-		FSOUND_SAMPLE	*g_win;
-		FSOUND_SAMPLE	*g_headshot;
-		FSOUND_SAMPLE	*g_next;
-		FSOUND_SAMPLE	*g_death;
-		FSOUND_SAMPLE	*g_attack;
 	
 	// Global game classes
 		CTimer*			timer;	// Timer class
 		CCamera*		camera;	// Camera	
-		CHeightMap*		theMap;	// Height map
+		CAltitude*		theMap;	// Height map
 };

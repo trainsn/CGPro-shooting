@@ -14,8 +14,6 @@
 #define		TEXT_TIME			40
 
 #define		MAX_ENEMIES			5				// Maximum number of permissible enemies.
-#define		ENEMIES				5				// Number of enemies actually generated.
-#define		ENEMIES_KILLED_WIN	ENEMIES			// Number of enemies you must kill to win.
 #define		CH					3				// Mihali, I can't believe you used 'CH' as a define name =P.
 
 #define		NO_ANIMATION		-1

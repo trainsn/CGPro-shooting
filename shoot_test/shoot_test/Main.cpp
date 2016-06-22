@@ -7,7 +7,6 @@ bool loadUpEverything()
 
     staticImages.loadHeightMapTextures();  //load height textures
     loadModels();                           //load models
-    game.initializeGameSounds();             //intialize audio streams
 
     //Random trees
     for (int i = 0; i < NUM_TREES; i++)
@@ -27,11 +26,10 @@ int inline rangedRand(int range_min, int range_max)
     return (int)((double)rand() / (RAND_MAX + 1)*(range_max - range_min) + range_min);
 }
 
-//copy 
 int loadModels()
 {
     //star
-    shot_ninja = new MilkshapeModel();
+    shot_ninja = new Milkshape();
     if (shot_ninja->loadModelData("../models/milk/star.ms3d") == false)
     {
         MessageBox(NULL, "Couldn't load the Star model", "Error", MB_OK | MB_ICONERROR);
@@ -40,7 +38,7 @@ int loadModels()
     shot_ninja->setState(NO_ANIMATION);
 
     //bullet
-    shot_pirate = new MilkshapeModel();
+    shot_pirate = new Milkshape();
     if (shot_pirate->loadModelData("../models/milk/bullet.ms3d") == false)
     {
         MessageBox(NULL, "Couldn't load the Bullet model", "Error", MB_OK | MB_ICONERROR);
@@ -49,7 +47,7 @@ int loadModels()
     shot_pirate->setState(NO_ANIMATION);
 
     // Cannon
-    cannon = new MilkshapeModel();
+    cannon = new Milkshape();
     if (cannon->loadModelData("../models/milk/cannon.ms3d") == false)
     {
         MessageBox(NULL, "Couldn't load the Cannon model", "Error", MB_OK | MB_ICONERROR);
@@ -57,7 +55,7 @@ int loadModels()
     }
     cannon->setState(NO_ANIMATION);
 
-    japaneseTower = new MilkshapeModel();
+    japaneseTower = new Milkshape();
     if (japaneseTower->loadModelData("../models/milk/japaneseTower.ms3d") == false)
     {
         MessageBox(NULL, "Couldn't load the Japanese Tower model", "Error", MB_OK | MB_ICONERROR);
@@ -65,7 +63,7 @@ int loadModels()
     }
     japaneseTower->setState(NO_ANIMATION);
 
-    pirateBoat = new MilkshapeModel();
+    pirateBoat = new Milkshape();
     if (pirateBoat->loadModelData("../models/milk/pirateBoat.ms3d") == false)
     {
         MessageBox(NULL, "Couldn't load the Pirate Boat model", "Error", MB_OK | MB_ICONERROR);
@@ -73,7 +71,7 @@ int loadModels()
     }
     pirateBoat->setState(NO_ANIMATION);
 
-    tree = new MilkshapeModel();
+    tree = new Milkshape();
     if (tree->loadModelData("../models/milk/tree.ms3d") == false)
     {
         MessageBox(NULL, "Couldn't load the Tree  model", "Error", MB_OK | MB_ICONERROR);
@@ -135,7 +133,7 @@ void shoot()
     shot->setVisible(true);
 }
 
-bool inline CollisionBoxPoint(MilkshapeModel* obj1, tVector3 point)
+bool inline CollisionBoxPoint(Milkshape* obj1, tVector3 point)
 {
     float zm = min(obj1->getTBbox ().zmin, obj1->getTBbox ().zmax);
     float zx = max(obj1->getTBbox ().zmin, obj1->getTBbox ().zmax);
@@ -158,12 +156,8 @@ bool inline CollisionBoxPoint(MilkshapeModel* obj1, tVector3 point)
         {
             //Headshot!
             //a tribute to the hours spent on unreal tournament
-            FSOUND_PlaySound(FSOUND_FREE, game.g_headshot);
             game.setText(50, staticImages.statics[8], staticImages.statics[9]);
         }
-        else
-            FSOUND_PlaySound(FSOUND_FREE, game.g_next);
-
         return true;
     }
 
@@ -177,7 +171,7 @@ bool CheckBulletCollisions()
     float yc = (shot->getTBbox ().ymin + shot->getTBbox ().ymax) / 2;
     float zc = (shot->getTBbox ().zmin + shot->getTBbox ().zmax) / 2;
 
-    for (int i = 0; i < ENEMIES; i++)
+	for (int i = 0; i < MAX_ENEMIES; i++)
     {
         if (enemies[i]->getModel()->getVisible() && CollisionBoxPoint(enemies[i]->getModel(), tVector3(xc, yc, zc)))
         {
@@ -218,8 +212,7 @@ void moveshot()
 
         glPopMatrix();
         
-        CheckBulletCollisions();
-        
+        CheckBulletCollisions();        
     }
 }
 
@@ -271,7 +264,7 @@ int drawGLScene(GLvoid) //here's where we do all the drawing
     {
         glMatrixMode(GL_MODELVIEW);
         glPushMatrix();
-        for (int i = 0; i < ENEMIES; i++)
+		for (int i = 0; i < MAX_ENEMIES; i++)
             enemies[i]->Draw();
         glPopMatrix();
     }
@@ -287,28 +280,6 @@ int drawGLScene(GLvoid) //here's where we do all the drawing
 
     return TRUE;
 }
-// BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscreenflag)
-// {
-//     if (fullscreenflag)
-//         width = (long)GetSystemMetrics(SM_CXSCREEN);
-//     if (fullscreenflag)
-//         height = (long)GetSystemMetrics(SM_CYSCREEN);
-// 
-//     GLuint PixelFormat;// Holds the results after searching for A match 
-//     WNDCLASS wc;//windows class structure
-//     DWORD dwExStyle;//window extended style
-//     DWORD dwStyle;//window style
-//     RECT WindowRect;//grabs rectangle upper left/lower right values
-//     WindowRect.left = (long)0;      //set left value to 0
-//     WindowRect.right = (long)width; //set right value to requested width
-//     WindowRect.top = (long)0;       //set top value to 0
-//     WindowRect.bottom = (long)height;//set bottom value to requested height
-// 
-//     fullscreen = fullscreenflag;    //set the global fullscreen flag 
-//     
-//     hInstance = GetModuleHandle(NULL);
-//     
-// }
 
 GLvoid killGLWindow(GLvoid)								// Properly Kill The Window
 {
@@ -351,7 +322,6 @@ GLvoid killGLWindow(GLvoid)								// Properly Kill The Window
     }
 }
 
-//copy
 BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscreenflag)
 {
     if (fullscreenflag)
@@ -542,8 +512,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             switch (game.currentState)
             {
             case GAMESTATE_SPLASH_START:
-                game.camera->Position_Camera(0, game.theMap->Height(MAP_SIZE / 2, MAP_SIZE / 2) - HM_DISPLACEMENT, 0,
-                    0, game.theMap->Height(MAP_SIZE / 2, MAP_SIZE / 2), 100, 0, 1, 0);
+                game.camera->Position_Camera(0, game.theMap->Altitude(MAP_SIZE / 2, MAP_SIZE / 2) - HM_DISPLACEMENT, 0,
+					0, game.theMap->Altitude(MAP_SIZE / 2, MAP_SIZE / 2), 100, 0, 1, 0);
                 game.setState(GAMESTATE_SELECT_PIRATE);
                 break;
             case GAMESTATE_SPLASH_ABOUT:
@@ -557,17 +527,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 game.CharacterType = PIRATE;
                 shot = shot_pirate;
                 game.setState(GAMESTATE_PLAY);
-                for (int i = 0; i < ENEMIES; i++)
-                    enemies[i] = new CCharacter("../models/milk/ninja.ms3d", &game, rangedRand(0, 5), (float)rangedRand(150, 300), (float)rangedRand(150, 300));
+				for (int i = 0; i < MAX_ENEMIES; i++)
+                    enemies[i] = new CFigure("../models/milk/ninja.ms3d", &game, rangedRand(0, 5), (float)rangedRand(150, 300), (float)rangedRand(150, 300));
                 break;
 
             case GAMESTATE_SELECT_NINJA:
                 game.CharacterType = NINJA;
                 shot = shot_ninja;
                 game.setState(GAMESTATE_PLAY);
-                for (int i = 0; i < ENEMIES; i++)
+				for (int i = 0; i < MAX_ENEMIES; i++)
                 {
-                    enemies[i] = new CCharacter("../models/milk/dwarf.ms3d", &game, 0, (float)rangedRand(-300, -200), (float)rangedRand(-300, -200));
+                    enemies[i] = new CFigure("../models/milk/dwarf.ms3d", &game, 0, (float)rangedRand(-300, -200), (float)rangedRand(-300, -200));
                 }
                 break;
             case GAMESTATE_ABOUT:
@@ -591,11 +561,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 break;
 
             case GAMESTATE_SPLASH_ABOUT:
-                game.setState(GAMESTATE_SPLASH_EXIT);
+                game.setState(GAMESTATE_SPLASH_START);
                 break;
 
             case GAMESTATE_SPLASH_EXIT:
                 game.setState(GAMESTATE_SPLASH_ABOUT);
+				break;
 
             case GAMESTATE_SELECT_PIRATE:
                 game.setState(GAMESTATE_SELECT_NINJA);
@@ -674,12 +645,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 {
     MSG msg;    //  Windows Message
     BOOL done = false;  //Bool variable to exit loop
-    HWND g_hSplash = NULL;
 
-    if (MessageBox(NULL, "Would you like to run in fullscreen mode?", "Start Fullscreen?", MB_YESNO | MB_ICONQUESTION) == IDNO)
-        fullscreen = FALSE;
-
-
+	fullscreen = FALSE;
     srand((unsigned)time(NULL));
 
     //Reset timer start tick to game start time
@@ -716,9 +683,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         }
     }
     killGLWindow();
-    game.killAllSounds();
 
-    for (int i = 0; i < ENEMIES; i++)
+	for (int i = 0; i < MAX_ENEMIES; i++)
         delete enemies[i];
 
     return(msg.wParam);

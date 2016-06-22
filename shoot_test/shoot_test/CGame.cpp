@@ -4,7 +4,7 @@ CGame::CGame(void)
 {
 	timer				= new CTimer();
 	camera				= new CCamera();
-	theMap				= new CHeightMap();
+	theMap				= new CAltitude();
 	
 	
 	// Initialize game state, character stats, camera
@@ -30,50 +30,9 @@ CGame::~CGame(void)
 	delete theMap;
 }
 
-void CGame::initializeGameSounds()
-{
-	// initialize fmod, 44000 Hz, 64 channels
-	FSOUND_Init(44000,64,0);
-
-	g_splash_stream = FSOUND_Stream_Open( "../sounds/Barbossa.mp3",				FSOUND_2D , 0 , 0 );
-	g_rick_stream   = FSOUND_Stream_Open( "../sounds/NeverGonnaGiveYouUp.mp3" , FSOUND_2D , 0 , 0 );
-	g_lose			= FSOUND_Sample_Load (FSOUND_FREE,"../sounds/Death.wav",	0,0,0);
-	g_win			= FSOUND_Sample_Load (FSOUND_FREE,"../sounds/Yeah_baby.wav",0,0,0);
-	g_headshot		= FSOUND_Sample_Load (FSOUND_FREE,"../sounds/headshot2.wav",0,0,0);
-	g_death			= FSOUND_Sample_Load (FSOUND_FREE,"../sounds/Death.wav",	0,0,0);
-	g_attack		= FSOUND_Sample_Load (FSOUND_FREE,"../sounds/Ha.wav",	0,0,0);
-	g_next			= FSOUND_Sample_Load (FSOUND_FREE,"../sounds/Who_is_next.wav",	0,0,0);
-	FSOUND_Stream_Play(1,g_splash_stream);
-	FSOUND_Stream_SetLoopCount(g_splash_stream, -1);
-}
-
-void CGame::killAllSounds()
-{
-	FSOUND_Stream_Close(  g_splash_stream );
-	FSOUND_Stream_Close(  g_rick_stream );
-}
-
 void CGame::setState(int newState)
 {
 	currentState = newState;
-
-	switch(newState) {
-
-		case GAMESTATE_END:
-			FSOUND_Stream_Stop( g_rick_stream );
-			FSOUND_Stream_Stop( g_splash_stream );
-			if ( CharacterWinLose == YOU_WIN )
-				FSOUND_PlaySound (0,g_win);
-			else
-				FSOUND_PlaySound (0,g_lose);
-			break;
-		case GAMESTATE_ABOUT:
-			FSOUND_Stream_Play( 1, g_rick_stream );
-			break;
-
-		default:
-			break;
-	}
 }
 
 void CGame::setGameOver()
@@ -85,7 +44,7 @@ void CGame::setGameOver()
 		CharacterWinLose = YOU_LOSE;
 		setState(GAMESTATE_END);
 	}
-	else if ( numEnemiesKilled >= ENEMIES_KILLED_WIN )
+	else if (numEnemiesKilled >= MAX_ENEMIES)
 	{
 		gameOver = true;
 		CharacterWinLose = YOU_WIN;
@@ -95,7 +54,7 @@ void CGame::setGameOver()
 
 int CGame::getHMTrans(float x, float y)
 {
-	return theMap->Height(x + int(MAP_SIZE/2), y + int(MAP_SIZE/2)) - HM_DISPLACEMENT - 20;
+	return theMap->Altitude(x + int(MAP_SIZE / 2), y + int(MAP_SIZE / 2)) - HM_DISPLACEMENT - 20;
 }
 
 void CGame::handleInput(bool fullscreen)

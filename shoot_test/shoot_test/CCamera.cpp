@@ -19,7 +19,7 @@ void CCamera::Position_Camera(float pos_x,  float pos_y,  float pos_z,
 }
 
 
-void CCamera::Move_Camera(float speed, CHeightMap* theMap)
+void CCamera::Move_Camera(float speed, CAltitude* theMap)
 {
 	tVector3 vVector = mView - mPos;	// Get the view vector
 	
@@ -31,14 +31,14 @@ void CCamera::Move_Camera(float speed, CHeightMap* theMap)
 	if (  mPos.z + MAP_SIZE/2 < 0 )
 		 mPos.z = -MAP_SIZE/2;
 
-	mPos.y  = (float)theMap->Height(int(mPos.x + MAP_SIZE/2.0f), int(mPos.z + MAP_SIZE/2.0f)) - HM_DISPLACEMENT; 
+	mPos.y = (float)theMap->Altitude(int(mPos.x + MAP_SIZE / 2.0f), int(mPos.z + MAP_SIZE / 2.0f)) - HM_DISPLACEMENT;
 	
 	mView.x = mView.x + vVector.x * speed;
 	mView.z = mView.z + vVector.z * speed;
 
 }
 
-void CCamera::Strafe_Camera(float speed, CHeightMap* theMap)
+void CCamera::Strafe_Camera(float speed, CAltitude* theMap)
 {
 	tVector3 vVector = mView - mPos;	
 	tVector3 vOrthoVector;
@@ -59,7 +59,7 @@ void CCamera::Strafe_Camera(float speed, CHeightMap* theMap)
 	if (  mPos.z + MAP_SIZE/2 < 0 )
 		 mPos.z = -MAP_SIZE/2;
 
-	mPos.y  = (float)theMap->Height(int(mPos.x + MAP_SIZE/2.0f), int(mPos.z + MAP_SIZE/2.0f)) - HM_DISPLACEMENT; 
+	mPos.y = (float)theMap->Altitude(int(mPos.x + MAP_SIZE / 2.0f), int(mPos.z + MAP_SIZE / 2.0f)) - HM_DISPLACEMENT;
 
 	mView.x = mView.x + vOrthoVector.x * speed;
 	mView.z = mView.z + vOrthoVector.z * speed;

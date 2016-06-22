@@ -25,24 +25,15 @@
     <Filter Include="头文件\models">
       <UniqueIdentifier>{4725f1b7-10cf-42d4-9e32-957687bb926c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\fmod">
-      <UniqueIdentifier>{82c217db-4acd-49dd-8326-f7fb2d49e15a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="源文件\timer">
       <UniqueIdentifier>{84545dc3-9871-4d33-bf81-7e2161c73aca}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CTimer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Defines.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="SOIL.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CHeightMap.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Glext.h">
@@ -72,25 +63,22 @@
     <ClInclude Include="Vector.h">
       <Filter>头文件\math</Filter>
     </ClInclude>
-    <ClInclude Include="MilkshapeModel.h">
-      <Filter>头文件\models</Filter>
-    </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>头文件\models</Filter>
     </ClInclude>
-    <ClInclude Include="CCharacter.h">
+    <ClInclude Include="Win32Timer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="fmod.h">
-      <Filter>头文件\fmod</Filter>
+    <ClInclude Include="CTimer.h">
+      <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="fmod_errors.h">
-      <Filter>头文件\fmod</Filter>
+    <ClInclude Include="Milkshape.h">
+      <Filter>头文件\models</Filter>
     </ClInclude>
-    <ClInclude Include="fmoddyn.h">
-      <Filter>头文件\fmod</Filter>
+    <ClInclude Include="CAltitude.h">
+      <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Win32Timer.h">
+    <ClInclude Include="CFigure.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -113,15 +101,6 @@
     <ClCompile Include="CCamera.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CHeightMap.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="MilkshapeModel.cpp">
-      <Filter>源文件\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="CCharacter.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -130,6 +109,15 @@
     </ClCompile>
     <ClCompile Include="Win32Timer.cpp">
       <Filter>源文件\timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Milkshape.cpp">
+      <Filter>源文件\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="CAltitude.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CFigure.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

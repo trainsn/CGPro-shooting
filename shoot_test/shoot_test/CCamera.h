@@ -1,7 +1,7 @@
 #pragma once 
 
 #include "Defines.h"
-#include "CHeightMap.h"
+#include "CAltitude.h"
 
 struct tVector3
 {			
@@ -30,10 +30,10 @@ public:
 	tVector3 mView;		
 	tVector3 mUp;			
 
-	void Strafe_Camera(float speed, CHeightMap* theMap);
+	void Strafe_Camera(float speed, CAltitude* theMap);
 
 	void Mouse_Move(int wndWidth, int wndHeight, bool fullscreenflag);
-	void Move_Camera(float speed, CHeightMap* theMap);
+	void Move_Camera(float speed, CAltitude* theMap);
 	void Rotate_View(float speed);
 	void Position_Camera(float pos_x, float pos_y,float pos_z,
 		 				 float view_x, float view_y, float view_z,
