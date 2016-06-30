@@ -28,7 +28,6 @@ public:
 
     int w, h;//window width,height
 
-    //static textures
     GLuint statics[10];
     GLuint splash[4];
     GLuint selectClass[4];

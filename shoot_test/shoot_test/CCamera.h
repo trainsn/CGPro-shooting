@@ -32,7 +32,7 @@ public:
 
 	void Strafe_Camera(float speed, CAltitude* theMap);
 
-	void Mouse_Move(int wndWidth, int wndHeight, bool fullscreenflag);
+	void Mouse_Move(int wndWidth, int wndHeight);
 	void Move_Camera(float speed, CAltitude* theMap);
 	void Rotate_View(float speed);
 	void Position_Camera(float pos_x, float pos_y,float pos_z,

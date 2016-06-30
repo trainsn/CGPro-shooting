@@ -7,8 +7,8 @@ CGame::CGame(void)
 	theMap				= new CAltitude();
 	
 	
-	// Initialize game state, character stats, camera
-	currentState		= GAMESTATE_LOADING; // See Defines.h for the enumeration of game states.
+	// 初始化游戏状态，任务状态和照相机
+	currentState		= GAMESTATE_LOADING; //游戏状态见Defines.h 
 	gameOver			= false;
 	rickroll_Mode		= false;
 	
@@ -57,10 +57,10 @@ int CGame::getHMTrans(float x, float y)
 	return theMap->Altitude(x + int(MAP_SIZE / 2), y + int(MAP_SIZE / 2)) - HM_DISPLACEMENT - 20;
 }
 
-void CGame::handleInput(bool fullscreen)
+void CGame::handleInput()
 {
 	keyboardInput();
-	camera->Mouse_Move(640,480, fullscreen);
+	camera->Mouse_Move(640,480);
 }
 
 void CGame::keyboardInput()

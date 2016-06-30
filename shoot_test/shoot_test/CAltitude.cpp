@@ -40,19 +40,19 @@ void CAltitude::RenderHeightMap(PFNGLMULTITEXCOORD2FARBPROC glMultiTexCoord2fARB
         glBindTexture(GL_TEXTURE_2D, heightMapTexture[1]);//detail.bmp
 
         glBegin(GL_QUADS);
-            //top left vertex
+            //左上点
         glMultiTexCoord2fARB(GL_TEXTURE0_ARB, x_0, y_0);
         glMultiTexCoord2fARB(GL_TEXTURE1_ARB, 0.0f, 0.0f);
 		glVertex3i(x, Altitude(x, y), y);
-            //bottom left vertex
+            //左下点
         glMultiTexCoord2fARB(GL_TEXTURE0_ARB, x_0, y_1);
         glMultiTexCoord2fARB(GL_TEXTURE1_ARB, 0.0f, 1.0f);
 		glVertex3i(x, Altitude(x, y + STEP_SIZE), y + STEP_SIZE);
-            //bottom right vertex
+            //右下点
         glMultiTexCoord2fARB(GL_TEXTURE0_ARB, x_1, y_1);
         glMultiTexCoord2fARB(GL_TEXTURE1_ARB, 1.0f, 1.0f);
 		glVertex3i(x + STEP_SIZE, Altitude(x + STEP_SIZE, y + STEP_SIZE), y + STEP_SIZE);
-            //top right vertex
+            //右上点
         glMultiTexCoord2fARB(GL_TEXTURE0_ARB, x_1, y_0);
         glMultiTexCoord2fARB(GL_TEXTURE1_ARB, 1.0f, 0.0f);
 		glVertex3i(x + STEP_SIZE, Altitude(x + STEP_SIZE, y), y);
@@ -72,7 +72,7 @@ int CAltitude::Altitude(int X, int Y)
     x = x > 0?x : 0;
     y = y > 0 ? y : 0;
 
-    return g_HeightMap[x + (y*MAP_SIZE)] / 2;//index into our height array and return the height
+    return g_HeightMap[x + (y*MAP_SIZE)] / 2;//转换到一维数组返回高程
 }
 
 void CAltitude::SetVertexColor(int x, int y)

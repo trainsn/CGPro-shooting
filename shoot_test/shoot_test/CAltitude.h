@@ -18,14 +18,14 @@ public:
 	CAltitude(void);
 	~CAltitude(void);
 
-    //Heightmap rendering functions
+    //高程绘制函数
     void  RenderHeightMap(PFNGLMULTITEXCOORD2FARBPROC glMultiTexCoord2fARB, PFNGLACTIVETEXTUREARBPROC glActiveTextureARB, GLuint* heightMapTexture);
 	int Altitude(int X, int Y);
     void SetVertexColor(int x, int y);
     void SetupTexture(bool draw_TexturedTerrain, bool splash_screen, int x, int y, int i);
 
 private:
-    //Heightmap storage
+    //高程储存
     unsigned char* g_HeightMap;
 
 };

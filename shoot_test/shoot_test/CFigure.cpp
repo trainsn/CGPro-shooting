@@ -26,8 +26,7 @@ CFigure::CFigure(const char* filename, CGame* game, int suit, float x_i, float y
 		cModel->addState(166, 173, NO_LOOP);	// NINJA_DEAD
 		cModel->addState(184,205, LOOP);		// NINJA_IDLE
 		cModel->setState(NINJA_WALKING);
-		cModel->setVisible(true); //nate n00b if visible is TRUE then collision detection is applied
-								  //doesn't do anything about the actual visibility of the object
+		cModel->setVisible(true); // 如果visible为true，那么我们将会进行碰撞检测
 
 		cBehavior	= AGGRESSIVE;
 		cType		= NINJA;
@@ -41,8 +40,7 @@ CFigure::CFigure(const char* filename, CGame* game, int suit, float x_i, float y
 		cModel->addState(230, 251, NO_LOOP);	// NINJA_DEAD
 		cModel->addState(292, 325, LOOP);		// NINJA_IDLE
 		cModel->setState(NINJA_WALKING);
-		cModel->setVisible(true); //nate n00b if visible is TRUE then collision detection is applied
-								  //doesn't do anything about the actual visibility of the object
+		cModel->setVisible(true);  // 如果visible为true，那么我们将会进行碰撞检测
 
 		cBehavior	= AGGRESSIVE;
 		cType		= PIRATE;
@@ -64,7 +62,7 @@ CFigure::~CFigure(void)
 
 void CFigure::Draw()
 {
-	// Decide what the character is doing, then draw that.
+	// 根据人物在干什么，选择正确的绘制方式
 	switch(cBehavior)
 	{
 		case WANDER:
@@ -83,22 +81,22 @@ void CFigure::Draw()
 			break;
 	}
 
-	// put our movements over the past dt into gl form
+	// 正式绘制
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glTranslatef(currentPosition[0], currentPosition[1], currentPosition[2]);
 	glRotatef(rotation, 0,1,0);
 
-	//dwarf model is bigger than the ninja, so needs scaling
+	//矮人模型比忍者模型要大，这很奇怪，所以要通过缩放变小
 	if (cGame->CharacterType == NINJA)
 		glScalef(0.18, 0.2, 0.18);
 
-	//MUST call this function for updating collision detection matrices
-	//this function must be called after ALL tranformations are applied
+	//碰撞检测之前必须要做这部分的工作，把包围盒矩阵从模型坐标系转换到视图坐标系
+	//当然需要在之前所有转换都完成之后才能够拿出矩阵来
 	cModel->updateTransfMatrix();
 
 	//debugging purposes
-	cModel->drawBoundingBox();
+	/*cModel->drawBoundingBox();*/
 	cModel->draw();
 
 	glPopMatrix();
@@ -117,12 +115,12 @@ void CFigure::wander()
 {
 	cModel->setState(NINJA_WALKING);
 
-	lastPosition = currentPosition;		// save the last spot we were at
+	lastPosition = currentPosition;		// 保存需要到达的位置
 	
-	// decide whether we've reached our destination point
+	// 判断是否已经到达目标点
 	Vec3d check = endPosition - currentPosition;
 	if ( check.length() < DEST_RADIUS )
-		setNewEndPosition();	// Update destination point
+		setNewEndPosition();	// 更新目标点
 	
 	Vec3d delta = endPosition - startPosition;
 	delta.normalize();
@@ -157,7 +155,7 @@ void CFigure::defend()
 {
 	Vec3d cameraPosition = Vec3d(cGame->camera->mPos.x, cGame->getHMTrans(cGame->camera->mPos.x,cGame->camera->mPos.z) + 10, cGame->camera->mPos.z);
 
-	// decide whether we've reached our destination point
+	// 判断是否已经到达攻击范围
 	Vec3d check = currentPosition - cameraPosition;
 	double checkLength = check.length();
 	if ( checkLength < ATTACK_RADIUS )
@@ -165,14 +163,14 @@ void CFigure::defend()
 		cModel->setState(NINJA_ATTACK);
 		if ( cGame->timer->getTicks_mS() - attackTime > ATTACK_TIME )
 		{			
-			cGame->CharacterHealth -= 10;	// comment this out for invulnerability
+			cGame->CharacterHealth -= 10;	//攻击成功，健康值减10
 			attackTime = (float)cGame->timer->getTicks_mS();
 		}
 	}
 	else
 		cModel->setState(NINJA_IDLE);
 	
-	// make the ninja look at the camera
+	// 要让忍者面对任务视角
 	Vec3d newDirection = (currentPosition - cameraPosition);
 	newDirection.normalize();
 

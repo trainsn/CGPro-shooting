@@ -67,19 +67,14 @@ void CCamera::Strafe_Camera(float speed, CAltitude* theMap)
 }
 
 
-void CCamera::Mouse_Move(int wndWidth, int wndHeight, bool fullscreenflag)
+void CCamera::Mouse_Move(int wndWidth, int wndHeight)
 {
-	if (fullscreenflag)
-		wndWidth = (long)GetSystemMetrics(SM_CXSCREEN);
-	if (fullscreenflag)
-		wndHeight = (long)GetSystemMetrics(SM_CYSCREEN);
 	
-
 	POINT mousePos;	
 	int mid_x = wndWidth  >> 1;	
 	int mid_y = wndHeight >> 1;	
-	float angle_y  = 0.0f;				
-	float angle_z  = 0.0f;							
+	float angle_x  = 0.0f;				
+	float angle_y  = 0.0f;							
 	
 	GetCursorPos(&mousePos);
 	
@@ -87,18 +82,18 @@ void CCamera::Mouse_Move(int wndWidth, int wndHeight, bool fullscreenflag)
 
 	SetCursorPos(mid_x, mid_y);		
 
-	// Get the direction from the mouse cursor, set a resonable maneuvering speed
-	angle_y = (float)( (mid_x - mousePos.x) ) / 1000;		
-	angle_z = (float)( (mid_y - mousePos.y) ) / 1000;
+	// 获取鼠标角度，设置合适的旋转角度
+	angle_x = (float)( (mid_x - mousePos.x) ) / 1000;		
+	angle_y = (float)( (mid_y - mousePos.y) ) / 1000;
 
-	// The higher the value is the faster the camera looks around.
-	mView.y += angle_z * 100;
+	// 这个值越大照相机看的越远
+	mView.y += angle_y * 100;
 
-	// limit the rotation around the x-axis
+	// y方向上的角度需要限制，不能超太多
 	if((mView.y - mPos.y) > 100)  mView.y = mPos.y + 100;
 	if((mView.y - mPos.y) <-100)  mView.y = mPos.y - 100;
 	
-	Rotate_View(-angle_y); // Rotate
+	Rotate_View(-angle_x); // 旋转
 }
 
 void CCamera::Rotate_View(float speed)

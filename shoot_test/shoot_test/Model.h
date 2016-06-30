@@ -24,9 +24,9 @@
 #include "Vector.h"
 #include "SOIL.h"
 
-#pragma comment(lib,"opengl32.lib");
-#pragma  comment(lib,"glu32.lib");
-#pragma  comment(lib,"glaux.lib");
+// #pragma comment(lib,"opengl32.lib");
+// #pragma  comment(lib,"glu32.lib");
+// #pragma  comment(lib,"glaux.lib");
 
 #define  MAX_STATES 20
 

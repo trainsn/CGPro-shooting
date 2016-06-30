@@ -2,13 +2,13 @@
 
 bool loadUpEverything()
 {
-    staticImages.loadStaticTextures();  //load static textures
-    staticImages.loadSkyBoxTextures();  //load the sky box textures
+    staticImages.loadStaticTextures();  //导入一系列要用的静态图
+    staticImages.loadSkyBoxTextures();  //导入天空图
 
-    staticImages.loadHeightMapTextures();  //load height textures
-    loadModels();                           //load models
+    staticImages.loadHeightMapTextures();  //导入高程
+    loadModels();                           //导入模型
 
-    //Random trees
+    //树
     for (int i = 0; i < NUM_TREES; i++)
     {
         for (int j = 0; j < NUM_TREES; j++)
@@ -28,7 +28,7 @@ int inline rangedRand(int range_min, int range_max)
 
 int loadModels()
 {
-    //star
+    //子弹
     shot_ninja = new Milkshape();
     if (shot_ninja->loadModelData("../models/milk/star.ms3d") == false)
     {
@@ -37,7 +37,7 @@ int loadModels()
     }
     shot_ninja->setState(NO_ANIMATION);
 
-    //bullet
+    //飞镖
     shot_pirate = new Milkshape();
     if (shot_pirate->loadModelData("../models/milk/bullet.ms3d") == false)
     {
@@ -46,7 +46,7 @@ int loadModels()
     }
     shot_pirate->setState(NO_ANIMATION);
 
-    // Cannon
+    // 加农炮
     cannon = new Milkshape();
     if (cannon->loadModelData("../models/milk/cannon.ms3d") == false)
     {
@@ -82,12 +82,12 @@ int loadModels()
     return TRUE;
 }
 
-int InitGL(GLvoid)  //All Setup For opengl goes here
+int InitGL(GLvoid)  //所有的OpenGL设置
 {
-    glShadeModel(GL_SMOOTH);    //Enable smooth shading 
-    glClearColor(0.0f, 0.0f, 0.0f, 0.5f);   //Black Background 
-    glClearDepth(1.0f); //depth buffer setup
-    glEnable(GL_DEPTH_TEST); //enables depth testing
+    glShadeModel(GL_SMOOTH);    //开启smooth shading 
+    glClearColor(0.0f, 0.0f, 0.0f, 0.5f);   //黑色的背景
+    glClearDepth(1.0f); //深度缓冲设置
+    glEnable(GL_DEPTH_TEST); //开启深度检测
     glDepthFunc(GL_LEQUAL);
 
     glShadeModel(GL_SMOOTH);
@@ -99,13 +99,13 @@ int InitGL(GLvoid)  //All Setup For opengl goes here
 
     glActiveTextureARB = (PFNGLACTIVETEXTUREARBPROC)wglGetProcAddress("glActiveTextureARB");
     glMultiTexCoord2fARB=(PFNGLMULTITEXCOORD2FARBPROC)wglGetProcAddress("glMultiTexCoord2fARB");
-    if (!glActiveTextureARB || !glMultiTexCoord2fARB)//check if you openGl version support Multitexturing 
+    if (!glActiveTextureARB || !glMultiTexCoord2fARB)//OpenGL是否支持多重贴图 
     {
         MessageBox(NULL, "This OpenGL version does not support Multitexturing!", "ERROR", MB_OK);
         PostQuitMessage(0); //if not exit
     }
 
-    //static textures
+    //静态图
     staticImages.statics[0] = SOIL_load_OGL_texture
         (
         "../images/static/loading.png",
@@ -154,8 +154,8 @@ bool inline CollisionBoxPoint(Milkshape* obj1, tVector3 point)
     {
         if (point.y > min(obj1->getTBbox ().ymin, obj1->getTBbox ().ymax) + 6 * max(obj1->getTBbox ().ymin, obj1->getTBbox ().ymax) / 7)
         {
-            //Headshot!
-            //a tribute to the hours spent on unreal tournament
+            //爆头！
+            //把我们准备好的爆头图放到屏幕上
             game.setText(50, staticImages.statics[8], staticImages.statics[9]);
         }
         return true;
@@ -166,7 +166,7 @@ bool inline CollisionBoxPoint(Milkshape* obj1, tVector3 point)
 
 bool CheckBulletCollisions()
 {
-    //check for collision dectection
+    //碰撞检测
     float xc = (shot->getTBbox ().xmin + shot->getTBbox ().xmax) / 2;
     float yc = (shot->getTBbox ().ymin + shot->getTBbox ().ymax) / 2;
     float zc = (shot->getTBbox ().zmin + shot->getTBbox ().zmax) / 2;
@@ -176,7 +176,7 @@ bool CheckBulletCollisions()
         if (enemies[i]->getModel()->getVisible() && CollisionBoxPoint(enemies[i]->getModel(), tVector3(xc, yc, zc)))
         {
             enemies[i]->die();
-            shot->setVisible(false);
+            shot->setVisible(false);//关闭碰撞检测
             return true;
         }
     }
@@ -186,7 +186,7 @@ bool CheckBulletCollisions()
 
 void moveshot()
 {
-    //shot object 
+    //子弹的移动
     if (game.shoot_time > 0)
     {
         game.shoot_time--;
@@ -204,9 +204,9 @@ void moveshot()
         glScalef(0.01, 0.01, 0.01);
         
         shot->updateTransfMatrix();
-        shot->drawBoundingBox();
+        /*shot->drawBoundingBox();*/
         
-        //draw the star after t passes a point 
+        //在子弹打出去一段时间之后，绘制子弹
         if (t > STAR_DRAW_AFTER)
             shot->draw();
 
@@ -239,9 +239,9 @@ GLvoid ReSizeGLScene(GLsizei width, GLsizei height)  //Resize and initialize the
 int drawGLScene(GLvoid) //here's where we do all the drawing 
 {
     if (showLoadingScreen())
-        return TRUE;
+        return true;
 
-    //if we're on the splash screen,rotate the camera for a cinematic effect 
+    //如果我们处在浮层中，那么我们的场景会旋转，这就好像在看电影的感觉
     if (game.currentState == GAMESTATE_SPLASH_START || game.currentState == GAMESTATE_SPLASH_ABOUT || game.currentState == GAMESTATE_SPLASH_EXIT || game.currentState == GAMESTATE_ABOUT)
         game.camera->Rotate_View(0.001);
 
@@ -275,61 +275,177 @@ int drawGLScene(GLvoid) //here's where we do all the drawing
     if (game.displayText())
         staticImages.drawStatic(game.t_mask, game.t_text);
 
-    //finally, after the screen is drawn, draw static textures;
+    //最终，需要把浮层绘制上去
     staticImages.drawGLStatics();
 
-    return TRUE;
+    return true;
 }
 
-GLvoid killGLWindow(GLvoid)								// Properly Kill The Window
+void drawStaticModels()
 {
-    if (fullscreen)										// Are We In Fullscreen Mode?
-    {
-        ChangeDisplaySettings(NULL, 0);					// If So Switch Back To The Desktop
-        ShowCursor(TRUE);								// Show Mouse Pointer
-    }
+	glMatrixMode(GL_MODELVIEW);
 
-    if (hRC)											// Do We Have A Rendering Context?
-    {
-        if (!wglMakeCurrent(NULL, NULL))					// Are We Able To Release The DC And RC Contexts?
-        {
-            MessageBox(NULL, "Release Of DC And RC Failed.", "SHUTDOWN ERROR", MB_OK | MB_ICONINFORMATION);
-        }
+	//绘制日本塔 
+	glPushMatrix();
+	glTranslatef(200, game.getHMTrans(200, 180) - 8, 180);
+	japaneseTower->draw();
+	glPopMatrix();
 
-        if (!wglDeleteContext(hRC))						// Are We Able To Delete The RC?
-        {
-            MessageBox(NULL, "Release Rendering Context Failed.", "SHUTDOWN ERROR", MB_OK | MB_ICONINFORMATION);
-        }
-        hRC = NULL;										// Set RC To NULL
-    }
+	//绘制海盗船
+	glPushMatrix();
+	glTranslatef(-350, game.getHMTrans(-350, -150) + 20, -150);
+	glScalef(5.0f, 5.0f, 5.0f);
+	glRotatef(-100, 0, 1, 0);
+	pirateBoat->draw();
+	glPopMatrix();
 
-    if (hDC && !ReleaseDC(hWnd, hDC))					// Are We Able To Release The DC
-    {
-        MessageBox(NULL, "Release Device Context Failed.", "SHUTDOWN ERROR", MB_OK | MB_ICONINFORMATION);
-        hDC = NULL;										// Set DC To NULL
-    }
+	//绘制加农炮（2座）
+	glPushMatrix();
+	glTranslatef(-230, game.getHMTrans(-230, -175) + 10, -175);
+	glScalef(0.05, 0.05, 0.05);
+	cannon->draw();
+	glPopMatrix();
 
-    if (hWnd && !DestroyWindow(hWnd))					// Are We Able To Destroy The Window?
-    {
-        MessageBox(NULL, "Could Not Release hWnd.", "SHUTDOWN ERROR", MB_OK | MB_ICONINFORMATION);
-        hWnd = NULL;										// Set hWnd To NULL
-    }
+	glPushMatrix();
+	glTranslatef(-210, game.getHMTrans(-210, -170) + 10, -170);
+	glScalef(0.05, 0.05, 0.05);
+	glRotatef(-52, 0, 1, 0);
+	cannon->draw();
+	glPopMatrix();
 
-    if (!UnregisterClass("OpenGL", hInstance))			// Are We Able To Unregister Class
-    {
-        MessageBox(NULL, "Could Not Unregister Class.", "SHUTDOWN ERROR", MB_OK | MB_ICONINFORMATION);
-        hInstance = NULL;									// Set hInstance To NULL
-    }
+	//画树
+	for (int i = 0; i < NUM_TREES; i++)
+		for (int j = 0; j < NUM_TREES; j++)
+		{
+		Vec3d treeLoc(TreeTranslationi[NUM_TREES*i + j], game.getHMTrans(TreeTranslationi[NUM_TREES*i + j], TreeTranslationj[NUM_TREES*i + j]), TreeTranslationj[NUM_TREES*i + j]);
+
+		Vec3d treePos(treeLoc[0] - game.camera->mPos.x, treeLoc[1] - game.camera->mPos.y, treeLoc[2] - game.camera->mPos.z);
+
+		Vec3d camLoc(game.camera->mView.x - game.camera->mPos.x, game.camera->mView.y - game.camera->mPos.y, game.camera->mView.z - game.camera->mPos.z);
+
+		//随机化一些树出来之后，有选择的选择一些在视线范围内的树绘制，可以省一点时间
+		if (treePos*camLoc > 0)
+		{
+			if (treePos.length2() < TREE_DRAW_DIST)
+			{
+				glPushMatrix();
+				glTranslatef(treeLoc[0], treeLoc[1], treeLoc[2]);
+				tree->draw();
+				glPopMatrix();
+			}
+		}
+		else continue;
+		}
+
+	//画天空
+	glDisable(GL_LIGHTING);
+	drawSkybox(0, 0, 0, MAP_SIZE, MAP_SIZE, MAP_SIZE);
+
+	//画高程图
+	glTranslatef(-MAP_SIZE / 2, -20.0f, -MAP_SIZE / 2);
+	game.theMap->RenderHeightMap(glMultiTexCoord2fARB, glActiveTextureARB, staticImages.heightMapTexture);
+	glEnable(GL_LIGHTING);
 }
 
-BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscreenflag)
+bool showLoadingScreen()
 {
-    if (fullscreenflag)
-        width = (long)GetSystemMetrics(SM_CXSCREEN);
-    if (fullscreenflag)
-        height = (long)GetSystemMetrics(SM_CYSCREEN);
+	if (game.currentState == GAMESTATE_LOADING)
+	{
+		staticImages.drawStatic(staticImages.statics[1], staticImages.statics[0]);
+		if (game.timer->getTicks_mS() <= 2000)
+			return true;
+		else if (game.timer->getTicks_mS() > 2000 && game.timer->getTicks_mS() < 3000 && !stuff_loaded)
+			stuff_loaded = loadUpEverything();
+		else
+		{
+			if (!stuff_loaded)
+				stuff_loaded = loadUpEverything();
+			game.setState(GAMESTATE_SPLASH_START);
+		}
+		return true;
+	}
+	else
+		return false;
+}
+
+void drawSkybox(float x, float y, float z, float width, float height, float length)
+{
+	x = x - width / 2;
+	y = y - width / 2;
+	z = z - width / 2;
+
+	glPushMatrix();
+	//前
+	glBindTexture(GL_TEXTURE_2D, staticImages.skybox[0]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glBegin(GL_QUADS);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z + length);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z + length);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y + height, z + length);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y, z + length);
+	glEnd();
+
+	//后
+	glBindTexture(GL_TEXTURE_2D, staticImages.skybox[1]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glBegin(GL_QUADS);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y, z);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y + height, z);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(x, y, z);
+	glEnd();
+
+	// 左
+	glBindTexture(GL_TEXTURE_2D, staticImages.skybox[2]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glBegin(GL_QUADS);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z + length);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(x, y, z + length);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z);
+	glEnd();
+
+	// 右
+	glBindTexture(GL_TEXTURE_2D, staticImages.skybox[3]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y, z);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y, z + length);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y + height, z + length);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y + height, z);
+	glEnd();
+
+	//上
+	glBindTexture(GL_TEXTURE_2D, staticImages.skybox[4]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y + height, z);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y + height, z + length);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z + length);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z);
+	glEnd();
+
+	//下
+	glBindTexture(GL_TEXTURE_2D, staticImages.skybox[5]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(x, y, z);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z + length);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y, z + length);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y, z);
+	glEnd();
+	glPopMatrix();
+}
 
 
+BOOL CreateGLWindow(char* title, int width, int height, int bits)
+{
     GLuint		PixelFormat;			// Holds The Results After Searching For A Match
     WNDCLASS	wc;						// Windows Class Structure
     DWORD		dwExStyle;				// Window Extended Style
@@ -339,8 +455,6 @@ BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscree
     WindowRect.right = (long)width;		// Set Right Value To Requested Width
     WindowRect.top = (long)0;				// Set Top Value To 0
     WindowRect.bottom = (long)height;		// Set Bottom Value To Requested Height
-
-    fullscreen = fullscreenflag;			// Set The Global Fullscreen Flag
 
     hInstance = GetModuleHandle(NULL);				// Grab An Instance For Our Window
     wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;	// Redraw On Size, And Own DC For Window.
@@ -357,38 +471,10 @@ BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscree
     if (!RegisterClass(&wc))
         return FALSE;
 
-    if (fullscreen)
-    {
-        DEVMODE dmScreenSettings;								// Device Mode
-        memset(&dmScreenSettings, 0, sizeof(dmScreenSettings));	// Makes Sure Memory's Cleared
-        dmScreenSettings.dmSize = sizeof(dmScreenSettings);		// Size Of The Devmode Structure
-        dmScreenSettings.dmPelsWidth = width;				// Selected Screen Width
-        dmScreenSettings.dmPelsHeight = height;				// Selected Screen Height
-        dmScreenSettings.dmBitsPerPel = bits;					// Selected Bits Per Pixel
-        dmScreenSettings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH | DM_PELSHEIGHT;
-
-        if (ChangeDisplaySettings(&dmScreenSettings, CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
-        {
-            if (MessageBox(NULL, "The Requested Fullscreen Mode Is Not Supported By\nYour Video Card. Use Windowed Mode Instead?", "OPENGL", MB_YESNO | MB_ICONEXCLAMATION) == IDYES)
-                fullscreen = FALSE;
-            else
-            {
-                MessageBox(NULL, "Program Will Now Close.", "ERROR", MB_OK | MB_ICONSTOP);
-                return FALSE;
-            }
-        }
-    }
-
-    if (fullscreen)												// Are We Still In Fullscreen Mode?
-    {
-        dwExStyle = WS_EX_APPWINDOW;								// Window Extended Style
-        dwStyle = WS_POPUP;										// Windows Style
-        ShowCursor(FALSE);										// Hide Mouse Pointer
-    }
-    else
     {
         dwExStyle = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;			// Window Extended Style
         dwStyle = WS_OVERLAPPEDWINDOW;							// Windows Style
+		ShowCursor(FALSE);
     }
 
     AdjustWindowRectEx(&WindowRect, dwStyle, FALSE, dwExStyle);
@@ -408,7 +494,7 @@ BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscree
         hInstance,
         NULL)))
     {
-        killGLWindow();								// Reset The Display
+       /* killGLWindow();	*/							// Reset The Display
         MessageBox(NULL, "Window Creation Error.", "ERROR", MB_OK | MB_ICONEXCLAMATION);
         return FALSE;								// Return FALSE
     }
@@ -439,7 +525,7 @@ BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscree
         !SetPixelFormat(hDC, PixelFormat, &pfd) || !(hRC = wglCreateContext(hDC)) ||
         !wglMakeCurrent(hDC, hRC))
     {
-        killGLWindow();								// Reset The Display
+        /*killGLWindow();*/								// Reset The Display
         MessageBox(NULL, "OpenGL initialization error.", "ERROR", MB_OK | MB_ICONEXCLAMATION);
         return FALSE;								// Return FALSE
     }
@@ -451,7 +537,7 @@ BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscree
 
     if (!InitGL())									// Initialize Our Newly Created GL Window
     {
-        killGLWindow();								// Reset The Display
+        /*killGLWindow();*/								// Reset The Display
         MessageBox(NULL, "Initialization Failed.", "ERROR", MB_OK | MB_ICONEXCLAMATION);
         return FALSE;								// Return FALSE
     }
@@ -646,7 +732,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     MSG msg;    //  Windows Message
     BOOL done = false;  //Bool variable to exit loop
 
-	fullscreen = FALSE;
     srand((unsigned)time(NULL));
 
     //Reset timer start tick to game start time
@@ -654,7 +739,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     game.timer->startTick = game.timer->currentTick;
     game.setState(GAMESTATE_LOADING);
 
-    if (!CreateGLWindow("Pirates Vs. Ninjas", 640, 480, 16, fullscreen))
+    if (!CreateGLWindow("Shooting Game", 640, 480, 16))
         return 0;
 
     while (!done)
@@ -673,7 +758,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         {
             if (game.currentState == GAMESTATE_PLAY)
             {
-                game.handleInput(fullscreen);
+                game.handleInput();
                 game.setGameOver();
             }
             if ((active&&!drawGLScene()) || keys[VK_ESCAPE])
@@ -682,183 +767,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
                 SwapBuffers(hDC);
         }
     }
-    killGLWindow();
+    /*killGLWindow();*/
 
 	for (int i = 0; i < MAX_ENEMIES; i++)
         delete enemies[i];
 
     return(msg.wParam);
 }
-
-void drawStaticModels()
-{
-    glMatrixMode(GL_MODELVIEW);
-
-    //draw the Japanese tower 
-    glPushMatrix();
-    glTranslatef(200, game.getHMTrans(200, 180) - 8, 180);
-    japaneseTower->draw();
-    glPopMatrix();
-
-    //Draw the pirate boat 
-    glPushMatrix();
-    glTranslatef(-350, game.getHMTrans(-350, -150) + 20, -150);
-    glScalef(5.0f, 5.0f, 5.0f);
-    glRotatef(-100, 0, 1, 0);
-    pirateBoat->draw();
-    glPopMatrix();
-
-    //Draw the cannons
-    glPushMatrix();
-    glTranslatef(-230, game.getHMTrans(-230, -175) + 10, -175);
-    glScalef(0.05, 0.05, 0.05);
-    cannon->draw();
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(-210, game.getHMTrans(-210, -170) + 10, -170);
-    glScalef(0.05, 0.05, 0.05);
-    glRotatef(-52, 0, 1, 0);
-    cannon->draw();
-    glPopMatrix();
-
-    //Draw the tree
-    for (int i = 0; i < NUM_TREES; i++)
-        for (int j = 0; j < NUM_TREES; j++)
-        {
-        Vec3d treeLoc(TreeTranslationi[NUM_TREES*i + j], game.getHMTrans(TreeTranslationi[NUM_TREES*i + j], TreeTranslationj[NUM_TREES*i + j]), TreeTranslationj[NUM_TREES*i + j]);
-        
-        Vec3d treePos(treeLoc[0] - game.camera->mPos.x, treeLoc[1] - game.camera->mPos.y, treeLoc[2] - game.camera->mPos.z);
-        
-        Vec3d camLoc(game.camera->mView.x - game.camera->mPos.x, game.camera->mView.y - game.camera->mPos.y, game.camera->mView.z - game.camera->mPos.z);
-
-        //This si a quick and dirty way to figure out what trees to draw trees (using dot )
-        if (treePos*camLoc > 0)
-        {
-            if (treePos.length2() < TREE_DRAW_DIST)
-            {
-                glPushMatrix();
-                glTranslatef(treeLoc[0], treeLoc[1], treeLoc[2]);
-                tree->draw();
-                glPopMatrix();
-            }
-        }
-        else continue;
-        }
-
-    //Draw the skybox 
-    glDisable(GL_LIGHTING);
-    drawSkybox(0, 0, 0, MAP_SIZE, MAP_SIZE, MAP_SIZE);
-    
-    //Draw the height map
-    glTranslatef(-MAP_SIZE / 2, -20.0f, -MAP_SIZE / 2);
-    game.theMap->RenderHeightMap(glMultiTexCoord2fARB, glActiveTextureARB, staticImages.heightMapTexture);
-    glEnable(GL_LIGHTING);
-}
-
-void drawSkybox(float x, float y, float z, float width, float height, float length)
-{
-    x = x - width / 2;
-    y = y - width / 2;
-    z = z - width / 2;
-    
-    glPushMatrix();
-    //Draw the front side 
-    glBindTexture(GL_TEXTURE_2D, staticImages.skybox[0]);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glBegin(GL_QUADS);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y , z + length);
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z + length);
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y + height, z + length);
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y, z + length);
-    glEnd();
-
-    //Draw back side 
-    glBindTexture(GL_TEXTURE_2D, staticImages.skybox[1]);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glBegin(GL_QUADS);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y, z);
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y + height, z);
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z);
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(x, y, z);
-    glEnd();
-
-    // Draw Left side
-    glBindTexture(GL_TEXTURE_2D, staticImages.skybox[2]);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glBegin(GL_QUADS);
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z);
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z + length);
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(x, y, z + length);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z);
-    glEnd();
-
-    // Draw Right side	
-    glBindTexture(GL_TEXTURE_2D, staticImages.skybox[3]);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y, z);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y, z + length);
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y + height, z + length);
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y + height, z);
-    glEnd();
-
-    // Draw Up side
-    glBindTexture(GL_TEXTURE_2D, staticImages.skybox[4]);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y + height, z);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y + height, z + length);
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z + length);
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z);
-    glEnd();
-
-    // Draw Down side
-    glBindTexture(GL_TEXTURE_2D, staticImages.skybox[5]);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(x, y, z);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z + length);
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y, z + length);
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y, z);
-    glEnd();
-    glPopMatrix();
-}
-
-bool showLoadingScreen()
-{
-    if (game.currentState == GAMESTATE_LOADING)
-    {
-        staticImages.drawStatic(staticImages.statics[1], staticImages.statics[0]);
-        if (game.timer->getTicks_mS() <= 2000)
-            return true;
-        else if (game.timer->getTicks_mS() > 2000 && game.timer->getTicks_mS() < 3000 && !stuff_loaded)
-            stuff_loaded = loadUpEverything();
-        else
-        {
-            if (!stuff_loaded)
-                stuff_loaded = loadUpEverything();
-            game.setState(GAMESTATE_SPLASH_START);
-        }
-        return true;
-    }
-    else
-        return false;
-}
-
-
-
-
-
-
-
-
-
-
-

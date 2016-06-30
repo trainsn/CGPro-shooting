@@ -374,25 +374,20 @@ void CStaticImages::drawGLStatics()
 			break;
 
 		case GAMESTATE_PLAY:
-			if ( cGame->rickroll_Mode )
-				drawStatic(statics[6], statics[7]);
-			else
+			switch (cGame->CharacterType)
 			{
-				switch(cGame->CharacterType)
-				{
-				case PIRATE:// Change the action when player fires!
-					if ( cGame->shoot_time < SHOOT_TIME-2 && cGame->shoot_time > SHOOT_TIME-10 )
-						drawStatic(gun[2], gun[3]);
-					else
-						drawStatic(gun[0], gun[1]);
-					break;
-				case NINJA:
-					if ( cGame->shoot_time < SHOOT_TIME-2 && cGame->shoot_time > SHOOT_TIME-10 )
-						drawStatic(statics[4], statics[5]);
-					else
-						drawStatic(statics[2], statics[3]);
-					break;
-				}
+			case PIRATE:// Change the action when player fires!
+				if (cGame->shoot_time < SHOOT_TIME - 2 && cGame->shoot_time > SHOOT_TIME - 10)
+					drawStatic(gun[2], gun[3]);
+				else
+					drawStatic(gun[0], gun[1]);
+				break;
+			case NINJA:
+				if (cGame->shoot_time < SHOOT_TIME - 2 && cGame->shoot_time > SHOOT_TIME - 10)
+					drawStatic(statics[4], statics[5]);
+				else
+					drawStatic(statics[2], statics[3]);
+				break;
 			}
 			drawCross();
 			drawHealthStatic();

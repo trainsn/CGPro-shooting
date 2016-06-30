@@ -16,28 +16,28 @@ public:
 	CGame(void);
 	~CGame(void);
 	
-	// Game handle input
-		void handleInput(bool fullscreen);
+	// 游戏控制输入
+		void handleInput();
 		void keyboardInput();
 
-	// Game heightmap - get translation
+	// 高程图-移动值
 		int getHMTrans(float x, float y);
 
-	// Game state machine functions
+	// 游戏状态机函数
 		void setState(int newState);	
 		void setGameOver();
 
-	//in game text
+	// 游戏图
 		void setText(int time, GLuint mask, GLuint text);
 		bool displayText();
 
-	// Game variables
-		int				currentState;		// Game state machine variable
-		bool			CharacterWinLose;	// keep track of whether we've won yet.
-		int				CharacterHealth;	// keep track of player health.
-		bool			CharacterType;		// keep track of whether we're a pirate or ninja.
-		int				numEnemiesKilled;	// keep track of how many enemies we've killed to decide if we've met the win condition.
-		bool			gameOver;			// keep track of whether the game is over.
+	// 游戏变量
+		int				currentState;		// 游戏状态机函数
+		bool			CharacterWinLose;	// 判断是否已经赢了
+		int				CharacterHealth;	// 玩家的生命值
+		bool			CharacterType;		// 玩家人物
+		int				numEnemiesKilled;	// 已经打死了多少敌人
+		bool			gameOver;			// 游戏是否已经结束
 		bool			rickroll_Mode;		// this should be self-explanatory.
 		volatile int	shoot_time;			// how many Gldraws a shot lasts
 

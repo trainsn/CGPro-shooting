@@ -1,4 +1,3 @@
-
 #ifndef _MAIN_H
 #define _MAIN_H
 
@@ -43,23 +42,21 @@ static int h = (long)GetSystemMetrics(SM_CYSCREEN);//screen height
 
 bool keys[256]; //array used for the keyboard routine 
 bool active = true; //window active flag set to true by default 
-bool fullscreen = true;//fullscreent flag set to fulscreen mode by default
 
-//lighting 
+//光照 
 static GLfloat lightPosition0[] = { 0, 0, 0, 0 };
 static GLfloat lightDiffuse0[] = { 1, 1, 1, 1 };
-static GLfloat lightPosition1[] = { -2, 10, 5, 0 };
+static GLfloat lightPosition1[] = { -2, 10, 1, 0 };
 static GLfloat lightDiffuse1[] = { 1, 1, 1, 1 };
 static GLfloat lightSpecular1[] = { 0.6, 0.6, 0.6, 1 };
 static GLfloat model_ambient[] = { 0.4f, 0.4f, 0.4f, 1.0f };
 
-//keep track of game varibales all in one spot 
 static CGame game;
 
-//we handle textures in this class
+//贴图
 CStaticImages staticImages(&game, w, h);
 
-//Models 
+//模型 
 Milkshape *shot_pirate = NULL;
 Milkshape *shot_ninja = NULL;
 Milkshape *shot = NULL;
@@ -68,16 +65,16 @@ Milkshape *japaneseTower = NULL;
 Milkshape *pirateBoat = NULL;
 Milkshape *tree = NULL;
 
-//storage of random tree locations
+//树的位置
 float TreeTranslationi[NUM_TREES*NUM_TREES];
 float TreeTranslationj[NUM_TREES*NUM_TREES];
 
-//Animated charactres
+//动画人物
 CFigure* enemies[MAX_ENEMIES];
 
-//Shooting object variables
-tVector3 p, v, e;//store pos and view
-float t;//t in ray
+//子弹
+tVector3 p, v, e;// pos and view
+float t;//时间
 
 //Function Prototypes
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
